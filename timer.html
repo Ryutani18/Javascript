@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 id="timer">00:00.00</h1>
+  <button id="reset">reset</button>
+  <button id="start">start</button>
+  <div id="div"></div>
+</body>
+<script>
+  sw_status = 0;
+
+  const timer = document.getElementById("timer")
+  const reset = document.getElementById("reset")
+  const start = document.getElementById("start")
+  const div = document.getElementById("div")
+  const date = new Date()
+  let value = 0;
+  let lap_value = 0;
+  let now_date;
+  const array = new Array
+  
+  start.addEventListener("click", () => {
+    if(sw_status === 0) {
+      reset.innerHTML = "lap";
+      start.innerHTML = "stop";
+      sw_status = 1;
+      const base_date = new Date();
+      stop_watch = setInterval(function() {
+        now_date = new Date();
+        if(array.length > 0) {
+          value = array[0] + now_date.getTime() - base_date.getTime();
+        } else {
+          value = now_date.getTime() - base_date.getTime();
+        }
+        let minutes = Math.floor(value / 60000)
+        let seconds = Math.floor(value / 1000)
+        let mill_sec = value % 1000
+        minutes = ('00'+ (minutes % 60)).slice( -2 );
+        seconds = ('00'+ (seconds % 60)).slice( -2 );
+        mill_sec = ('00'+ Math.floor(mill_sec / 10)).slice( -2 );
+        timer.innerHTML = minutes + ":" + seconds + "." + mill_sec
+      }, 10);
+    } else if(sw_status === 1) {
+      reset.innerHTML = "reset";
+      start.innerHTML = "start";
+      clearInterval(stop_watch);
+      array[0] = Number(value)
+      sw_status = 0;
+    }
+  })
+
+  reset.addEventListener("click", () => {
+    if(sw_status === 0) {
+      timer.innerHTML = "00:00.00"
+      array.length = 0
+      div.innerHTML = ""
+      lap_value = 0
+    } else if(sw_status === 1) {
+      let lap = document.createElement("p")
+      let minutes = Math.floor((value - lap_value) / 60000)
+      let seconds = Math.floor((value - lap_value) / 1000)
+      let mill_sec = (value - lap_value) % 1000
+      minutes = ('00'+ (minutes % 60)).slice( -2 );
+      seconds = ('00'+ (seconds % 60)).slice( -2 );
+      mill_sec = ('00'+ Math.floor(mill_sec / 10)).slice( -2 );
+      lap.innerHTML = minutes + ":" + seconds + "." + mill_sec
+      lap_value = value
+      div.appendChild(lap)
+    }
+  })
+
+
+</script>
+</html>

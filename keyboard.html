@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 id="timer"></h1>
+  <h1 id="sample"></h1>
+  <button id="q">q</button>
+  <button id="w">w</button>
+  <button id="e">e</button>
+  <button id="r">r</button>
+  <button id="t">t</button>
+  <button id="y">y</button>
+  <button id="u">u</button>
+  <button id="i">i</button>
+  <button id="o">o</button>
+  <button id="p">p</button>
+  <button id="back">🔙</button>
+  <br>
+  <button id="a">a</button>
+  <button id="s">s</button>
+  <button id="d">d</button>
+  <button id="f">f</button>
+  <button id="g">g</button>
+  <button id="h">h</button>
+  <button id="j">j</button>
+  <button id="k">k</button>
+  <button id="l">l</button>
+  <button id="enter">↩︎</button>
+  <br>
+  <button id="z">z</button>
+  <button id="x">x</button>
+  <button id="c">c</button>
+  <button id="v">v</button>
+  <button id="b">b</button>
+  <button id="n">n</button>
+  <button id="m">m</button>
+  <button id="comma">,</button>
+  <button id="period">.</button>
+  <button id="shift">🔝</button>
+  <h1 id="h1"></h1>
+  
+
+  <script>
+    const q = document.getElementById("q")
+    const w = document.getElementById("w")
+    const e = document.getElementById("e")
+    const r = document.getElementById("r")
+    const t = document.getElementById("t")
+    const y = document.getElementById("y")
+    const u = document.getElementById("u")
+    const i = document.getElementById("i")
+    const o = document.getElementById("o")
+    const p = document.getElementById("p")
+    const back = document.getElementById("back")
+    const a = document.getElementById("a")
+    const s = document.getElementById("s")
+    const d = document.getElementById("d")
+    const f = document.getElementById("f")
+    const g = document.getElementById("g")
+    const h = document.getElementById("h")
+    const j = document.getElementById("j")
+    const k = document.getElementById("k")
+    const l = document.getElementById("l")
+    const enter = document.getElementById("enter")
+    const z = document.getElementById("z")
+    const x = document.getElementById("x")
+    const c = document.getElementById("c")
+    const v = document.getElementById("v")
+    const b = document.getElementById("b")
+    const n = document.getElementById("n")
+    const m = document.getElementById("m")
+    const comma = document.getElementById("comma")
+    const period = document.getElementById("period")
+    const shift = document.getElementById("shift")
+    const div = document.getElementById("div")
+    const array = ["cat","dog","elephant","Lion","Tiger","giraffe","jaguar","rabbit","bird"]
+    
+    
+    let int = 0;
+
+    sw_status = 1;
+
+    function type(alphabet) {
+      if(sw_status === 1) {
+        h1.append(alphabet)
+      } else if(sw_status === -1) {
+        h1.append(alphabet.toUpperCase())
+      }
+      if(h1.innerHTML.length === sample.innerHTML.length) {
+        word = h1.innerHTML
+        if(word === sample.innerHTML) {
+          console.log(array[int])
+          int ++
+          sample.innerHTML = array[int]
+          h1.innerHTML = ""
+        }
+        if(int === array.length) {
+          alert("おめでとうございます。ゲームクリアです！")
+          alert("あなたのタイムは" + timer.innerHTML + "です")
+          clearInterval(stop_watch);
+        }
+      }
+    }
+
+    function backspace() {
+      h1.innerHTML = h1.innerHTML.slice(0,-1)
+    }
+
+    q.addEventListener("click", () => { type("q") })
+    w.addEventListener("click", () => { type("w") })
+    e.addEventListener("click", () => { type("e") })
+    r.addEventListener("click", () => { type("r") })
+    t.addEventListener("click", () => { type("t") })
+    y.addEventListener("click", () => { type("y") })
+    u.addEventListener("click", () => { type("u") })
+    i.addEventListener("click", () => { type("i") })
+    o.addEventListener("click", () => { type("o") })
+    p.addEventListener("click", () => { type("p") })
+    back.addEventListener("click", () => {
+      backspace()
+    })
+    a.addEventListener("click", () => { type("a") })
+    s.addEventListener("click", () => { type("s") })
+    d.addEventListener("click", () => { type("d") })
+    f.addEventListener("click", () => { type("f") })
+    g.addEventListener("click", () => { type("g") })
+    h.addEventListener("click", () => { type("h") })
+    j.addEventListener("click", () => { type("j") })
+    k.addEventListener("click", () => { type("k") })
+    l.addEventListener("click", () => { type("l") })
+    enter.addEventListener("click", () => {
+      enterkey()
+    })
+    z.addEventListener("click", () => { type("z") })
+    x.addEventListener("click", () => { type("x") })
+    c.addEventListener("click", () => { type("c") })
+    v.addEventListener("click", () => { type("v") })
+    b.addEventListener("click", () => { type("b") })
+    n.addEventListener("click", () => { type("n") })
+    m.addEventListener("click", () => { type("m") })
+    comma.addEventListener("click", () => { type(",") })
+    period.addEventListener("click", () => { type(".") })
+    shift.addEventListener("click", () => { sw_status *= -1 })
+    
+    window.addEventListener("keydown", (e)=>{
+      if(e.key.length === 1) {
+        type(e.key)
+      } else if (e.key === "Backspace" ) {
+        backspace()
+      } else if (e.key === "Enter" ) {
+        enterkey()
+      }
+    })
+
+    sample.innerHTML = array[int]
+
+    const base_date = new Date();
+    stop_watch = setInterval(function() {
+      now_date = new Date();
+      value = now_date.getTime() - base_date.getTime();
+      let minutes = Math.floor(value / 60000)
+      let seconds = Math.floor(value / 1000)
+      let mill_sec = value % 1000
+      minutes = ('00'+ (minutes % 60)).slice( -2 );
+      seconds = ('00'+ (seconds % 60)).slice( -2 );
+      mill_sec = ('00'+ Math.floor(mill_sec / 10)).slice( -2 );
+      timer.innerHTML = minutes + ":" + seconds + "." + mill_sec
+    }, 10);
+
+    
+
+  </script>
+</body>
+</html>

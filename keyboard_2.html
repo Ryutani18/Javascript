@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="test.css">
+  <title>Document</title>
+</head>
+<body>
+  <p id="timer">00:00.00</p>
+  <p id="sample"></p>
+  <button id="q">q</button>
+  <button id="w">w</button>
+  <button id="e">e</button>
+  <button id="r">r</button>
+  <button id="t">t</button>
+  <button id="y">y</button>
+  <button id="u">u</button>
+  <button id="i">i</button>
+  <button id="o">o</button>
+  <button id="p">p</button>
+  <button id="back">🔙</button>
+  <br>
+  <button id="a">a</button>
+  <button id="s">s</button>
+  <button id="d">d</button>
+  <button id="f">f</button>
+  <button id="g">g</button>
+  <button id="h">h</button>
+  <button id="j">j</button>
+  <button id="k">k</button>
+  <button id="l">l</button>
+  <button id="enter">↩︎</button>
+  <br>
+  <button id="z">z</button>
+  <button id="x">x</button>
+  <button id="c">c</button>
+  <button id="v">v</button>
+  <button id="b">b</button>
+  <button id="n">n</button>
+  <button id="m">m</button>
+  <button id="comma">,</button>
+  <button id="period">.</button>
+  <button id="shift">🔝</button>
+
+  <script>
+    const q = document.getElementById("q")
+    const w = document.getElementById("w")
+    const e = document.getElementById("e")
+    const r = document.getElementById("r")
+    const t = document.getElementById("t")
+    const y = document.getElementById("y")
+    const u = document.getElementById("u")
+    const i = document.getElementById("i")
+    const o = document.getElementById("o")
+    const p = document.getElementById("p")
+    const back = document.getElementById("back")
+    const a = document.getElementById("a")
+    const s = document.getElementById("s")
+    const d = document.getElementById("d")
+    const f = document.getElementById("f")
+    const g = document.getElementById("g")
+    const h = document.getElementById("h")
+    const j = document.getElementById("j")
+    const k = document.getElementById("k")
+    const l = document.getElementById("l")
+    const enter = document.getElementById("enter")
+    const z = document.getElementById("z")
+    const x = document.getElementById("x")
+    const c = document.getElementById("c")
+    const v = document.getElementById("v")
+    const b = document.getElementById("b")
+    const n = document.getElementById("n")
+    const m = document.getElementById("m")
+    const comma = document.getElementById("comma")
+    const period = document.getElementById("period")
+    const shift = document.getElementById("shift")
+    const div = document.getElementById("div")
+    const string = 'We observe today not a victory of party but a celebration of freedom-symbolizing an end as well as a beginning-signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three-quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe-the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution. Let the word go forth from this time and place, to friend and foe alike, that the torch has been passed to a new generation of Americans-born in this century, tempered by war, disciplined by a hard and bitter peace, proud of our ancient heritage-and unwilling to witness or permit the slow undoing of those human rights to which this nation has always been committed, and to which we are committed today at home and around the world. Let every nation know, whether it wishes us well or ill, that we shall pay any price, bear any burden, meet any hardship, support any friend, oppose any foe to assure the survival and the success of liberty. This much we pledge-and more....to those nations who would make themselves our adversary, we offer not a pledge but a request: that both sides begin anew the quest for peace, before the dark powers of destruction unleashed by science engulf all humanity in planned or accidental self-destruction. We dare not tempt them with weakness. For only when our arms are sufficient beyond doubt can we be certain beyond doubt that they will never be employed. But neither can two great and powerful groups of nations take comfort from our present course--both sides overburdened by the cost of modern weapons, both rightly alarmed by the steady spread of the deadly atom, yet both racing to alter that uncertain balance of terror that stays the hand of mankind’s final war. So let us begin anew-remembering on both sides that civility is not a sign of weakness, and sincerity is always subject to proof. Let us never negotiate out of fear. But let us never fear to negotiate....Now the trumpet summons us again-not as a call to bear arms, though arms we need-not as a call to battle, though embattled we are-but a call to bear the burden of a long twilight struggle, year in and year out, "rejoicing in hope, patient in tribulation"-a struggle against the common enemies of man: tyranny, poverty, disease and war itself....In the long history of the world, only a few generations have been granted the role of defending freedom in its hour of maximum danger. I do not shrink from this responsibility-I welcome it. I do not believe that any of us would exchange places with any other people or any other generation. The energy, the faith, the devotion which we bring to this endeavor will light our country and all who serve it-and the glow from that fire can truly light the world. And so, my fellow Americans: ask not what your country can do for you-ask what you can do for your country. My fellow citizens of the world: ask not what America will do for you, but what together we can do for the freedom of man....'
+    const array  = string.split(" ")
+    let time = "off";
+    let sw_status = 1;
+    let hidden = new Array
+    let input = new String
+    let box = new Array;
+
+    if(input.length === 0) {
+      console.log(input)
+    }
+
+    sample.innerHTML = array.join(" ");
+    console.log(array[box.length])
+
+    for (let i = 0; i < array.length; i++) {
+      array[i] = array[i].split("")
+    }
+    
+    function type(alphabet) {
+      if(time === "off") {
+        const base_date = new Date();
+        stop_watch = setInterval(function() {
+          now_date = new Date();
+          value = now_date.getTime() - base_date.getTime();
+          let minutes = Math.floor(value / 60000)
+          let seconds = Math.floor(value / 1000)
+          let mill_sec = value % 1000
+          minutes = ('00'+ (minutes % 60)).slice( -2 );
+          seconds = ('00'+ (seconds % 60)).slice( -2 );
+          mill_sec = ('00'+ Math.floor(mill_sec / 10)).slice( -2 );
+          timer.innerHTML = minutes + ":" + seconds + "." + mill_sec
+        }, 10);
+        time = "on"
+      }
+      if(sw_status === 1) {
+        input += alphabet
+      } else if(sw_status === -1) {
+        input += alphabet.toUpperCase()
+      }
+      
+      let str = input[input.length-1]
+      let val = array[box.length][input.length-1]
+
+      if(str === val) {
+        array[box.length][input.length-1] = '<span class="correct">'+val+'</span>'
+      } else if(val === undefined) {
+        array[box.length][input.length-1] = '<span class="extra">'+str+'</span>'
+      } else {
+        array[box.length][input.length-1] = '<span class="incorrect">'+val+'</span>'
+      }
+      for (let i = 0; i < array.length; i++) {
+        hidden[i] = array[i].join('')
+      }
+      sample.innerHTML = hidden.join(" ");
+    }
+
+    function backspace() {
+      if(input.length === 0 && box.length !== 0) {
+        input = box.pop()
+      } else if(input.length > 0) {
+        if(array[box.length][input.length-1].match(/<span.+="(.+)">/)[1] === "extra") {
+          array[box.length].pop()
+        } else {
+          array[box.length][input.length-1] = array[box.length][input.length-1].match(/<span.+>(.)<\/span>/)[1]
+        }
+        input = input.slice(0,-1)
+        for (let i = 0; i < array.length; i++) {
+          hidden[i] = array[i].join('')
+        }
+        sample.innerHTML = hidden.join(" ");
+      }
+    }
+
+    function spacekey() {
+      if(input.length > 0) {
+        box[box.length] = input
+        input = ""
+        console.log(array[box.length])
+      }
+    }
+
+    q.addEventListener("click", () => { type("q") })
+    w.addEventListener("click", () => { type("w") })
+    e.addEventListener("click", () => { type("e") })
+    r.addEventListener("click", () => { type("r") })
+    t.addEventListener("click", () => { type("t") })
+    y.addEventListener("click", () => { type("y") })
+    u.addEventListener("click", () => { type("u") })
+    i.addEventListener("click", () => { type("i") })
+    o.addEventListener("click", () => { type("o") })
+    p.addEventListener("click", () => { type("p") })
+    back.addEventListener("click", () => {
+      backspace()
+    })
+    a.addEventListener("click", () => { type("a") })
+    s.addEventListener("click", () => { type("s") })
+    d.addEventListener("click", () => { type("d") })
+    f.addEventListener("click", () => { type("f") })
+    g.addEventListener("click", () => { type("g") })
+    h.addEventListener("click", () => { type("h") })
+    j.addEventListener("click", () => { type("j") })
+    k.addEventListener("click", () => { type("k") })
+    l.addEventListener("click", () => { type("l") })
+    enter.addEventListener("click", () => {
+      enterkey()
+    })
+    z.addEventListener("click", () => { type("z") })
+    x.addEventListener("click", () => { type("x") })
+    c.addEventListener("click", () => { type("c") })
+    v.addEventListener("click", () => { type("v") })
+    b.addEventListener("click", () => { type("b") })
+    n.addEventListener("click", () => { type("n") })
+    m.addEventListener("click", () => { type("m") })
+    comma.addEventListener("click", () => { type(",") })
+    period.addEventListener("click", () => { type(".") })
+    shift.addEventListener("click", () => { sw_status *= -1 })
+    
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === " " ) {
+        spacekey()
+      } else if (e.key === "Backspace" ) {
+        backspace()
+      } else if(e.key.length === 1) {
+        type(e.key)
+      }
+    })
+
+  </script>
+</body>
+</html>

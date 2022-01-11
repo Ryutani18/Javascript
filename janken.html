@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="gu">ぐー</button>
+  <button id="pa">ぱー</button>
+  <button id="choki">ちょき</button>
+  <h1 id="kekka"></h1>
+  <script>
+    const gu = document.querySelector("#gu")
+    const pa = document.querySelector("#pa")
+    const choki = document.querySelector("#choki")
+    const result = document.querySelector("#kekka")
+    function janken(user) {
+      if(user === "pa") {
+        result.innerHTML = "あなたの勝ちです"
+      } else if (user === "choki") {
+        result.innerHTML = "あなたの負けです"
+      } else if(user === "gu") {
+        result.innerHTML = "引き分けです"
+      }
+    }
+    gu.addEventListener("click", () => { janken("gu") })
+    pa.addEventListener("click", () => { janken("pa") })
+    choki.addEventListener("click", () => { janken("choki") })
+  </script>
+</body>
+</html>

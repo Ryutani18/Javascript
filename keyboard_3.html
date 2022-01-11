@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/keyboard.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#home" id="navbar__logo">Typing Game</a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="#home" class="navbar__links" id="home-page">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#about" class="navbar__links" id="about-page">About</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#options" class="navbar__links" id="options-page">Options</a>
+        </li>
+        <li class="navbar__btn">
+          <a href="#sign-up" class="button" id="signup">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="header">
+    <p id="timer">5</p>
+    <ul>
+      <button id="one">1</button>
+      <button id="five">5</button>
+      <button id="fifteen">15</button>
+      <button id="thirty">30</button>
+    </ul>
+  </div>
+  <p id="sample"></p>
+  <button id="q">q</button>
+  <button id="w">w</button>
+  <button id="e">e</button>
+  <button id="r">r</button>
+  <button id="t">t</button>
+  <button id="y">y</button>
+  <button id="u">u</button>
+  <button id="i">i</button>
+  <button id="o">o</button>
+  <button id="p">p</button>
+  <button id="back">🔙</button>
+  <br>
+  <button id="a">a</button>
+  <button id="s">s</button>
+  <button id="d">d</button>
+  <button id="f">f</button>
+  <button id="g">g</button>
+  <button id="h">h</button>
+  <button id="j">j</button>
+  <button id="k">k</button>
+  <button id="l">l</button>
+  <button id="enter">↩︎</button>
+  <br>
+  <button id="z">z</button>
+  <button id="x">x</button>
+  <button id="c">c</button>
+  <button id="v">v</button>
+  <button id="b">b</button>
+  <button id="n">n</button>
+  <button id="m">m</button>
+  <button id="comma">,</button>
+  <button id="period">.</button>
+  <button id="shift">🔝</button>
+  <br>
+  <button id="space"></button>
+
+  <script>
+    const q = document.getElementById("q")
+    const w = document.getElementById("w")
+    const e = document.getElementById("e")
+    const r = document.getElementById("r")
+    const t = document.getElementById("t")
+    const y = document.getElementById("y")
+    const u = document.getElementById("u")
+    const i = document.getElementById("i")
+    const o = document.getElementById("o")
+    const p = document.getElementById("p")
+    const back = document.getElementById("back")
+    const a = document.getElementById("a")
+    const s = document.getElementById("s")
+    const d = document.getElementById("d")
+    const f = document.getElementById("f")
+    const g = document.getElementById("g")
+    const h = document.getElementById("h")
+    const j = document.getElementById("j")
+    const k = document.getElementById("k")
+    const l = document.getElementById("l")
+    const enter = document.getElementById("enter")
+    const z = document.getElementById("z")
+    const x = document.getElementById("x")
+    const c = document.getElementById("c")
+    const v = document.getElementById("v")
+    const b = document.getElementById("b")
+    const n = document.getElementById("n")
+    const m = document.getElementById("m")
+    const comma = document.getElementById("comma")
+    const period = document.getElementById("period")
+    const shift = document.getElementById("shift")
+    const space = document.getElementById("space")
+    const one = document.getElementById("one")
+    const five = document.getElementById("five")
+    const fifteen = document.getElementById("fifteen")
+    const thirty = document.getElementById("thirty")
+    const div = document.getElementById("div")
+    const timer = document.getElementById("timer")
+    const string = 'We observe today not a victory of party but a celebration of freedom-symbolizing an end as well as a beginning-signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three-quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe-the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution. Let the word go forth from this time and place, to friend and foe alike, that the torch has been passed to a new generation of Americans—born in this century, tempered by war, disciplined by a hard and bitter peace, proud of our ancient heritage-and unwilling to witness or permit the slow undoing of those human rights to which this nation has always been committed, and to which we are committed today at home and around the world. Let every nation know, whether it wishes us well or ill, that we shall pay any price, bear any burden, meet any hardship, support any friend, oppose any foe to assure the survival and the success of liberty.';
+    const array  = string.split(" ");
+    const hidden = new Array;
+    const box = new Array;
+    const correct_words = new Array;
+    const acc = new Array;
+    const data = [0];
+    const sum = (...num) => ( Array.isArray(num[0]) ? num[0] : num ).reduce( ( a ,b ) => a + b , 0);
+    let time = "off";
+    let sw_status = 1;
+    let input = new String;
+    let letters_count;
+    let raw = 0;
+    let num = 5;
+    let error;
+
+    sample.innerHTML = array.join(" ");
+
+    for (let i = 0; i < array.length; i++) {
+      array[i] = array[i].split("");
+      for (let n = 0; n < array[i].length; n++) {
+        array[i][n];
+      }
+    }
+
+    function set_time(num) {
+      timer.innerHTML = num;
+    }
+
+    function type(alphabet) {
+      if(time === "off") {
+        stop_watch = setInterval(function() {
+          timer.innerHTML -= 1;
+          letters_count = 0;
+
+          correct_words.forEach(n => {
+            letters_count += (array[n].length + 1)
+          });
+          data.push(letters_count * 12 - sum(data));
+          // タイマーが止まったら
+          if(timer.innerHTML <= 0) {
+
+            letters_count = 0;
+
+            correct_words.forEach(n => {
+              letters_count += (array[n].length + 1);
+            });
+
+            fetch("http://localhost:3000/");
+
+            alert("time up!");
+            alert("あなたのwpmは" + Math.floor(letters_count * 12 / num) + "です。");
+            alert("あなたのrawは" + Math.floor(raw * 12 / num) + "です。");
+            alert("あなたのaccは" + Math.floor(sum(acc) / acc.length * 100) + "%です。");
+            alert(data);
+            alert("Evaluation Value = " + Math.floor(sum(acc) / acc.length * (raw * 12 / num)));
+            console.log(array);
+
+            clearInterval(stop_watch);
+          }
+        }, 1000);
+        time = "on";
+      }
+      if(sw_status === 1) {
+        input += alphabet;
+      } else if(sw_status === -1) {
+        input += alphabet.toUpperCase();
+      }
+      
+      let str = input[input.length-1];
+      let val = array[box.length][input.length-1];
+
+      if(str === val) {
+        array[box.length][input.length-1] = '<span class="correct">'+val+'</span>'
+        acc.push(1);
+      } else if(val === undefined) {
+        array[box.length][input.length-1] = '<span class="extra">'+str+'</span>'
+        acc.push(0);
+      } else {
+        array[box.length][input.length-1] = '<span class="incorrect">'+val+'</span>'
+        acc.push(0);
+      }
+      for (let i = 0; i < array.length; i++) {
+        hidden[i] = array[i].join('');
+      }
+      sample.innerHTML = hidden.join(" ");
+
+      raw += 1;
+    }
+
+    function backspace() {
+      // もし単語の冒頭でバックスペースが押されたら、前の単語に戻る（一番最初の単語は除く）
+      if(input.length === 0 && box.length !== 0 && correct_words[correct_words.length-1] !== box.length-1) {
+        input = box.pop();
+        raw -= 1;
+        // 単語の入力中にバックスペースが押されたら
+      } else if(input.length > 0) {
+        // extraの場合、文字を消す
+        if(array[box.length][input.length-1].match(/<span.+="(.+)">/)[1] === "extra") {
+          array[box.length].pop();
+          // それ以外の場合、文字の色を消す
+        } else {
+          array[box.length][input.length-1] = array[box.length][input.length-1].match(/<span.+>(.)<\/span>/)[1];
+        }
+        input = input.slice(0,-1);
+        raw -= 1;
+        for (let i = 0; i < array.length; i++) {
+          hidden[i] = array[i].join('');
+        }
+        sample.innerHTML = hidden.join(" ");
+      }
+    }
+
+    function spacekey() {
+      if(input.length > 0) {
+        box[box.length] = input;
+        input = "";
+        raw += 1;
+        // wordが一致しているか判別
+        error = 0;
+        array[box.length-1].forEach(i => {
+          if(i.match(/<span.+="(.+)">/)[1] === "incorrect" || i.match(/<span.+="(.+)">/)[1] === "extra") {
+            error += 1;
+          }
+        })
+        if(error === 0) {
+          correct_words.push(box.length-1);
+          acc.push(1);
+        } else {
+          acc.push(0);
+        }
+      }
+    }
+
+    q.addEventListener("click", () => { type("q") })
+    w.addEventListener("click", () => { type("w") })
+    e.addEventListener("click", () => { type("e") })
+    r.addEventListener("click", () => { type("r") })
+    t.addEventListener("click", () => { type("t") })
+    y.addEventListener("click", () => { type("y") })
+    u.addEventListener("click", () => { type("u") })
+    i.addEventListener("click", () => { type("i") })
+    o.addEventListener("click", () => { type("o") })
+    p.addEventListener("click", () => { type("p") })
+    back.addEventListener("click", () => {
+      backspace()
+    })
+    a.addEventListener("click", () => { type("a") })
+    s.addEventListener("click", () => { type("s") })
+    d.addEventListener("click", () => { type("d") })
+    f.addEventListener("click", () => { type("f") })
+    g.addEventListener("click", () => { type("g") })
+    h.addEventListener("click", () => { type("h") })
+    j.addEventListener("click", () => { type("j") })
+    k.addEventListener("click", () => { type("k") })
+    l.addEventListener("click", () => { type("l") })
+    space.addEventListener("click", () => {
+      spacekey()
+    })
+    z.addEventListener("click", () => { type("z") })
+    x.addEventListener("click", () => { type("x") })
+    c.addEventListener("click", () => { type("c") })
+    v.addEventListener("click", () => { type("v") })
+    b.addEventListener("click", () => { type("b") })
+    n.addEventListener("click", () => { type("n") })
+    m.addEventListener("click", () => { type("m") })
+    comma.addEventListener("click", () => { type(",") })
+    period.addEventListener("click", () => { type(".") })
+    shift.addEventListener("click", () => { sw_status *= -1 })
+
+    one.addEventListener("click", () => { set_time(1), num = 1 })
+    five.addEventListener("click", () => { set_time(5), num = 5 })
+    fifteen.addEventListener("click", () => { set_time(15), num = 15 })
+    thirty.addEventListener("click", () => {set_time(30), num = 30 })
+    
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === " " ) {
+        spacekey();
+      } else if (e.key === "Backspace" ) {
+        backspace();
+      } else if(e.key.length === 1) {
+        type(e.key);
+      }
+    })
+  </script>
+</body>
+</html>
